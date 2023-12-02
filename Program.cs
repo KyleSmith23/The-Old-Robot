@@ -1,12 +1,38 @@
-﻿
+﻿Robot robot = new Robot();
+robot.IsPowered = true;
+RobotCommand command1;
+RobotCommand command2;
 
+Console.WriteLine("Move North or South");
+string yAxis = Console.ReadLine().ToLower();
+
+if (yAxis == "north")
+{
+    command1 = new NorthCommand();
+} else
+{
+    command1 = new SouthCommand();
+}
+
+Console.WriteLine("Move East or West");
+string xAxis = Console.ReadLine().ToLower();
+
+if (xAxis == "East")
+{
+    command2 = new EastCommand();
+}
+else
+{
+    command2 = new WestCommand();
+}
+
+robot.Commands[0] = command1;
+robot.Commands[1] = command2;
+robot.Run();
 
 
 
 // Classes
-
-using System.Security.Cryptography.X509Certificates;
-
 public class Robot
 {
     public int X { get; set; }
@@ -41,5 +67,47 @@ public class OffCommand : RobotCommand
     public override void Run(Robot robot)
     {
         robot.IsPowered = false;
+    }
+}
+
+public class NorthCommand : RobotCommand
+{
+    public override void Run(Robot robot)
+    {
+        if (robot.IsPowered)
+        {
+            robot.Y++;
+        }
+    }
+}
+public class SouthCommand : RobotCommand
+{
+    public override void Run(Robot robot)
+    {
+        if (robot.IsPowered)
+        {
+            robot.Y--;
+        }
+    }
+}
+public class EastCommand : RobotCommand
+{
+    public override void Run(Robot robot)
+    {
+        if (robot.IsPowered)
+        {
+            robot.X++;
+        }
+    }
+}
+
+public class WestCommand : RobotCommand
+{
+    public override void Run(Robot robot)
+    {
+        if (robot.IsPowered)
+        {
+            robot.X--;
+        }
     }
 }
